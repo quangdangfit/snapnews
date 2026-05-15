@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Sample Feed</title>
+    <link>https://example.com</link>
+    <description>test</description>
+    <item>
+      <title>Tin số 1</title>
+      <link>https://example.com/a</link>
+      <pubDate>Wed, 14 May 2026 10:00:00 +0700</pubDate>
+      <description>Mô tả ngắn 1.</description>
+    </item>
+    <item>
+      <title>Tin số 2</title>
+      <link>https://example.com/b</link>
+      <pubDate>Wed, 14 May 2026 11:00:00 +0700</pubDate>
+      <description><![CDATA[<p>Mô tả có <b>HTML</b>.</p>]]></description>
+    </item>
+    <item>
+      <title>Tin không có pubDate</title>
+      <link>https://example.com/c</link>
+      <description>Bài không có ngày.</description>
+    </item>
+  </channel>
+</rss>
