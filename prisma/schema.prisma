@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Source {
+  id             Int       @id @default(autoincrement())
+  name           String
+  rssUrl         String    @unique
+  lastFetchedAt  DateTime?
+  articles       Article[]
+}
+
+model Article {
+  id            Int           @id @default(autoincrement())
+  sourceId      Int
+  source        Source        @relation(fields: [sourceId], references: [id])
+  title         String
+  link          String        @unique
+  publishedAt   DateTime
+  rawContent    String
+  createdAt     DateTime      @default(now())
+  summary       Summary?
+  clusterId     Int?
+  cluster       TopicCluster? @relation(fields: [clusterId], references: [id])
+
+  @@index([publishedAt])
+  @@index([clusterId])
+}
+
+model Summary {
+  id           Int      @id @default(autoincrement())
+  articleId    Int      @unique
+  article      Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  summaryText  String
+  category     String
+  hotScore     Float    @default(0)
+  createdAt    DateTime @default(now())
+
+  @@index([category])
+  @@index([hotScore])
+}
+
+model TopicCluster {
+  id         Int       @id @default(autoincrement())
+  topic      String
+  size       Int       @default(1)
+  createdAt  DateTime  @default(now())
+  articles   Article[]
+}
