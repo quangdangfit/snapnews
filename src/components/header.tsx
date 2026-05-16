@@ -1,5 +1,4 @@
 import { ThemeToggle } from './theme-toggle';
-import { RefreshButton } from './refresh-button';
 import Link from 'next/link';
 
 export function Header() {
@@ -23,7 +22,6 @@ export function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          <RefreshButton />
           <ThemeToggle />
         </div>
       </div>
