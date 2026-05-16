@@ -15,6 +15,8 @@ tắt + phân loại + gom cụm chủ đề, tính "độ nóng", hiển thị 
 - **Backend:** Next.js API Routes
 - **Database:** SQLite + Prisma ORM
 - **AI:** Anthropic Claude API (`claude-sonnet-4-20250514`)
+
+
 - **Crawl:** `rss-parser`, `@mozilla/readability` + `jsdom`
 - **Scheduler:** `node-cron` (in-process)
 - **Utils:** `p-limit` (concurrency), `zod` (validation), `next-themes`

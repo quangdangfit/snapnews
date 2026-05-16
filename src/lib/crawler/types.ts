@@ -3,4 +3,5 @@ export interface ParsedItem {
   link: string;
   publishedAt: Date;
   contentSnippet: string;
+  imageUrl?: string;
 }

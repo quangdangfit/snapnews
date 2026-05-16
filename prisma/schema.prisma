@@ -23,6 +23,7 @@ model Article {
   link          String        @unique
   publishedAt   DateTime
   rawContent    String
+  imageUrl      String?
   createdAt     DateTime      @default(now())
   summary       Summary?
   clusterId     Int?

@@ -21,6 +21,10 @@ vi.mock('@/lib/crawler/parser', () => ({
 }));
 
 vi.mock('@/lib/crawler/extractor', () => ({
+  fetchArticle: vi.fn(async (url: string) => ({
+    text: `Full content extracted from ${url}. `.repeat(20),
+    imageUrl: `${url}/cover.jpg`,
+  })),
   fetchArticleText: vi.fn(async (url: string) => `Full content extracted from ${url}. `.repeat(20)),
 }));
 
