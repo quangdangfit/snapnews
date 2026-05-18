@@ -14,7 +14,7 @@
     "db:studio": "prisma studio"
   },
   "prisma": {
-    "seed": "tsx prisma/seed.ts"
+    "seed": "node --import tsx prisma/seed.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
