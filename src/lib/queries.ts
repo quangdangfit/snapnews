@@ -1,5 +1,15 @@
 import { prisma } from '@/lib/db';
-import { CATEGORIES, type Category } from '@/lib/ai/types';
+
+export const CATEGORIES = [
+  'Thời sự',
+  'Công nghệ',
+  'Kinh tế',
+  'Thể thao',
+  'Thế giới',
+  'Giải trí',
+] as const;
+
+export type Category = (typeof CATEGORIES)[number];
 
 export interface ListArticlesQuery {
   category?: Category;

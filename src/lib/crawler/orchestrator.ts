@@ -4,16 +4,11 @@ import { fetchAndParseRss } from './parser';
 import { fetchArticle } from './extractor';
 import { filterNewItems } from './dedup';
 import type { ParsedItem } from './types';
-import { hasAnthropicKey } from '@/lib/ai/client';
-import { summarizeNewArticles } from '@/lib/ai/summarize';
-import { clusterRecent } from '@/lib/ai/cluster';
 import { recomputeHotScores } from '@/lib/scoring/hotScore';
 
 export interface CrawlStats {
   fetched: number;
   newArticles: number;
-  summarized: number;
-  clustered: number;
   hotScored: number;
   errors: string[];
   durationMs: number;
@@ -93,35 +88,17 @@ export async function runCrawl(sourceIds?: number[]): Promise<CrawlStats> {
   const newArticles = results.reduce((a, r) => a + r.inserted, 0);
   errors.push(...results.flatMap((r) => (r.error ? [r.error] : [])));
 
-  let summarized = 0;
-  let clustered = 0;
   let hotScored = 0;
 
-  if (hasAnthropicKey()) {
-    try {
-      summarized = await summarizeNewArticles();
-    } catch (e) {
-      errors.push(`summarize: ${(e as Error).message}`);
-    }
-    try {
-      clustered = await clusterRecent(24);
-    } catch (e) {
-      errors.push(`cluster: ${(e as Error).message}`);
-    }
-    try {
-      hotScored = await recomputeHotScores(24);
-    } catch (e) {
-      errors.push(`hotScore: ${(e as Error).message}`);
-    }
-  } else {
-    console.warn('[crawler] ANTHROPIC_API_KEY not set, skipping AI steps');
+  try {
+    hotScored = await recomputeHotScores(24);
+  } catch (e) {
+    errors.push(`hotScore: ${(e as Error).message}`);
   }
 
   return {
     fetched,
     newArticles,
-    summarized,
-    clustered,
     hotScored,
     errors,
     durationMs: Date.now() - start,

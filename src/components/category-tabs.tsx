@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CATEGORIES } from '@/lib/ai/types';
+import { CATEGORIES } from '@/lib/queries';
 import { cn } from '@/lib/utils';
 
 export function CategoryTabs({ current }: { current?: string }) {
